@@ -40,7 +40,8 @@ body{
 
 #chat-container{
     position: absolute;
-    height: 85%;
+    top:10%;
+    height: 75%;
     width: 95%;
     overflow-y: auto;
     word-wrap: break-word;
@@ -90,4 +91,18 @@ body{
 #username-description{
     width: 100%;
     height:50%;
+}
+
+#username-online{
+    background-color: red;
+    width: 95%;
+    height:10%;
+    top:0;
+    left:0;
+    position: absolute;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+    background-color: rgb(243, 243, 243);
+    transition: 0.25s;
+    user-select: none;
 }
