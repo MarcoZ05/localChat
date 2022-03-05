@@ -24,15 +24,9 @@ function sendMsg(msg) {
   if (msg != "") {
     chatInput.value = "";
     chatDiv.innerHTML +=
-      "<span id='" +
-      index +
-      "'><b>" +
-      name +
-      ":</b>" +
-      "<br>" +
-      msg +
-      "<br><br>";
-    htmlP.setStor("chat", chatDiv.innerHTML);
+      "<span><b>" + name + ":</b>" + "<br>" + msg + "<br><br>";
+
+    localStorage.setItem("chat", chatDiv.innerHTML);
   } else {
   }
 }
