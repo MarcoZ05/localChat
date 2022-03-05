@@ -1,4 +1,4 @@
-import * as htmlP from "../../../_export/easyHtml.js"
+import * as htmlP from "/_export/easyHtml.js"
 
 const chatInput = htmlP.elemById("chat-input")
 const chatDiv = htmlP.elemById("chat-container")
