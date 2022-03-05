@@ -10,7 +10,7 @@ const nameDiv = htmlP.elemById("username-container");
 const nameDescr = htmlP.elemById("username-description");
 const nameOnline = htmlP.elemById("username-online");
 
-let nameArr;
+let nameSet = false;
 let name;
 
 function getName() {
@@ -18,20 +18,14 @@ function getName() {
   if (nameInput.value != "") {
     nameDiv.remove();
   }
+  nameSet = true;
+  startRefreshName();
 }
 
 function sendMsg(msg) {
   if (msg != "") {
     chatInput.value = "";
-    chatDiv.innerHTML +=
-      "<span id='" +
-      index +
-      "'><b>" +
-      name +
-      ":</b>" +
-      "<br>" +
-      msg +
-      "<br><br>";
+    chatDiv.innerHTML += "<b>" + name + ":</b>" + "<br>" + msg + "<br><br>";
     htmlP.setStor("chat", chatDiv.innerHTML);
   } else {
   }
@@ -39,8 +33,8 @@ function sendMsg(msg) {
 
 function loadMsg() {
   let msg = htmlP.getStor("chat");
-
   chatDiv.innerHTML = msg;
+  refreshNames();
 }
 
 function startChat() {
@@ -55,8 +49,23 @@ function clickButton() {
   sendMsg(chatInput.value);
 }
 
-function refreshOnlineNames() {
-  // lade wenn name eingegeben (getName), localstorage load true => jeder client schickt name ins array ein
+function refreshNames() {
+  if (htmlP.getStor("loadUsers")) {
+    htmlP.setStor("names", htmlP.getStor("names").push(name));
+  } else if (!htmlP.getStor("loadUsers")) {
+      // kp wollte hier iwas hinmachen, leider vergessen
+  }
+}
+
+function startRefreshName() {
+  if (htmlP.getStor("loadUsers") == true) {
+    refreshNames();
+  }
+  htmlP.setStor("loadUsers", true);
+  htmlP.setStor("names", [name]);
+  setTimeout(() => {
+    htmlP.setStor("loadUsers", false);
+  }, 100);
 }
 
 function resetChat() {
@@ -68,13 +77,13 @@ function resetChat() {
 startChat();
 nameButton.addEventListener("click", getName);
 nameInput.addEventListener("keyup", function (event) {
-  if (event.keyCode == 13) {
+  if (event.key == "Enter") {
     getName();
   }
 });
 chatButton.addEventListener("click", clickButton);
 chatInput.addEventListener("keyup", function (event) {
-  if (event.keyCode == 13) {
+  if (event.key == "Enter") {
     clickButton();
   }
 });
