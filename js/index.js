@@ -1,32 +1,38 @@
 import * as htmlP from "./easyHtml.js";
 
-const chatInput = htmlP.elemById("chat-input");
-const chatDiv = htmlP.elemById("chat-container");
-const chatButton = htmlP.elemById("chat-submit");
+const chatContainer = document.getElementById("chatContainer");
 
-const nameInput = htmlP.elemById("username-input");
-const nameButton = htmlP.elemById("username-submit");
-const nameDiv = htmlP.elemById("username-container");
-const nameDescr = htmlP.elemById("username-description");
-const nameOnline = htmlP.elemById("username-online");
+const chatForm = document.getElementById("messageForm");
+const chatInput = document.getElementById("messageInput");
 
-let nameArr;
+const userModel = document.getElementById("user");
+const userForm = document.getElementById("userForm");
+
 let name;
 
-function getName() {
+userForm.addEventListener("submit", (e) => {
+  e.preventDefault(); // prevent page reload
+
+  // set name
+  const nameInput = document.getElementById("usernameInput");
   name = nameInput.value;
-  if (nameInput.value != "") {
-    nameDiv.remove();
-  }
-}
+  // close model
+  userModel.classList.add("hidden");
+});
+
+chatForm.addEventListener("submit", (e) => {
+  e.preventDefault(); // prevent page reload
+
+  sendMsg(chatInput.value);
+});
 
 function sendMsg(msg) {
   if (msg != "") {
     chatInput.value = "";
-    chatDiv.innerHTML +=
+    chatContainer.innerHTML +=
       "<span><b>" + name + ":</b>" + "<br>" + msg + "<br><br>";
 
-    localStorage.setItem("chat", chatDiv.innerHTML);
+    localStorage.setItem("chat", chatContainer.innerHTML);
   } else {
   }
 }
@@ -34,14 +40,12 @@ function sendMsg(msg) {
 function loadMsg() {
   let msg = htmlP.getStor("chat");
 
-  chatDiv.innerHTML = msg;
+  chatContainer.innerHTML = msg;
 }
 
 function startChat() {
   if (htmlP.getStor("chat") != null) {
     loadMsg();
-  } else {
-    htmlP.getStor("chat", "");
   }
 }
 
@@ -55,22 +59,10 @@ function refreshOnlineNames() {
 
 function resetChat() {
   chatInput.value = "";
-  chatDiv.innerHTML += "";
-  htmlP.setStor("chat", chatDiv.innerHTML);
+  chatContainer.innerHTML += "";
+  htmlP.setStor("chat", chatContainer.innerHTML);
 }
 
 startChat();
-nameButton.addEventListener("click", getName);
-nameInput.addEventListener("keyup", function (event) {
-  if (event.keyCode == 13) {
-    getName();
-  }
-});
-chatButton.addEventListener("click", clickButton);
-chatInput.addEventListener("keyup", function (event) {
-  if (event.keyCode == 13) {
-    clickButton();
-  }
-});
 
 window.onstorage = loadMsg;

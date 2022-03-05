@@ -6,17 +6,31 @@
     <title>Chat</title>
   </head>
   <body>
-    <div id="chat-container"></div>
-    <input type="text" id="chat-input" class="input" />
-    <div id="chat-submit" class="button centered-content">Send</div>
+    <div class="chat-container" id="chatContainer"></div>
+    <form class="message-form" id="messageForm">
+      <input
+        class="message-form__input"
+        type="text"
+        id="messageInput"
+        placeholder="Type a message..."
+      />
+      <button class="message-form__submit" type="submit">Send</button>
+    </form>
 
-    <div id="username-container">
-      <div id="username-online" class="centered-content"></div>
-      <div id="username-description" class="centered-content">
-        Please enter your Nickname:
-      </div>
-      <input id="username-input" class="input" />
-      <div id="username-submit" class="button centered-content">OK</div>
+    <div class="user" id="user">
+      <div class="user__online" id="userOnline"></div>
+      <form class="user__username" id="userForm">
+        <label for="username">
+          Username:
+          <input
+            class="user__username__input"
+            type="text"
+            id="usernameInput"
+            placeholder="Enter your username..."
+          />
+        </label>
+        <button class="user__username__submit" type="submit">Submit</button>
+      </form>
     </div>
 
     <script src="js/index.js" type="module"></script>
