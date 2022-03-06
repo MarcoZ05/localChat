@@ -92,7 +92,7 @@ body {
   height: 50%;
 }
 
-#online-user {
+#username-online {
   background-color: rgb(243, 243, 243);
   width: 95%;
   height: 10%;
@@ -102,4 +102,15 @@ body {
   padding-left: 2.5%;
   padding-right: 2.5%;
   user-select: none;
+  display: flex;
+  align-items: center;
+}
+
+#username-online:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 10%;
+  width: 1%;
+  background: greenyellow;
 }
